@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title></title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+  <style>
+    body {
+
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      width: 100%;
+      height: 110px;
+      position: relative;
+      overflow: hidden;
+    }
+    header img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background-color: #444;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      padding: 8px 15px;
+      border-radius: 5px;
+    }
+    nav a:hover {
+      background-color: #666;
+    }
+    .nav-left {
+     display: flex;
+     align-items: center;
+     flex: 1;
+    }
+.nav-center {
+  justify-content: center; /* Center the forms horizontally */
+  align-items: center;     /* Vertically align the items */
+  gap: 20px;               /* Space between filter form and search form */
+  flex-grow: 1;            /* Allow this container to grow and fill available space */
+  margin-left: 0px;
+      flex: 2;
+      text-align: center;
+}
+
+.nav-center form {
+  display: flex;
+  justify-content: center; /* Center the form contents */
+  align-items: center;     /* Align form elements vertically */
+}
+    .nav-right {
+      flex: 1;
+      text-align: right;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+    .nav-center input[type="text"] {
+      padding: 10px;
+      width: 250px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .nav-center button {
+      padding: 6px 12px;
+      margin-left: 10px;
+      background-color: #666;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .nav-center button:hover {
+      background-color: #555;
+    }
+
+
+    form input {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+.nav-center button {
+      padding: 8px 16px;
+      margin-left: 5px;
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .nav-center button:hover {
+      background-color: #007BFF;
+    }
+
+    }
+    .form-container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #F9F9F9;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #basket p {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .basket-items {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .basket-items .item {
+      padding: 10px;
+      background-color: #EAEAEA;
+      margin: 5px;
+      border-radius: 5px;
+      width: 80%;
+      text-align: center;
+    }
+    .nav-right img {
+      width: 30px;
+      height: 30px;
+      vertical-align: middle;
+    }
+
+
+    .nav-right img {
+      width: 30px;
+      height: 30px;
+      vertical-align: middle;
+    }
+
+
+
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 10px;
+    }
+
+    .book-container {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin: 20px 0;
+      border-bottom: 1px solid #ccc;
+      padding-bottom: 20px;
+      position: relative;
+    }
+
+    .book-image {
+      max-width: 110px;
+      height: auto;
+      flex-shrink: 0;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+
+    .book-info {
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+    }
+
+    .book-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+
+    .book-author {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
+
+    .book-content {
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
+}
+
+    p {
+      margin: 5px 0;
+      font-size: 0.85rem;
+    }
+
+    .add-to-basket {
+      margin-top: 10px;
+    }
+
+    .quantity-input {
+      width: 50px;
+      margin-left: 10px;
+      font-size: 0.9rem;
+    }
+
+    .add-to-basket-button {
+      margin-left: 10px;
+      padding: 5px 10px;
+      font-size: 0.9rem;
+      background-color: #007bff;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+
+    .book-author {
+      font-size: 0.9rem;
+      color: #666;
+      margin-bottom: 10px;
+    }
+    .add-to-basket {
+      margin-top: auto; /* Push the button to the bottom of the container */
+    }
+
+    .quantity-input {
+      width: 50px;
+      margin-left: 10px;
+      font-size: 0.9rem;
+    }
+
+
+
+
+    .book-price {
+      position: absolute;
+      top: 0;
+      right: 0;
+      font-size: 1.6rem; /* Larger font size */
+      font-weight: bold; /* Bold text */
+      color: #444; /* Price color */
+      background-color: #f9f9f9; /* Optional background for better visibility */
+      padding: 5px 10px; /* Add padding for spacing */
+    }
+
+
+
+    .add-book-container,
+    .edit-book-container {
+      display: none;
+      border: 1px solid #ccc;
+      padding: 20px;
+      margin-top: 20px;
+      border-radius: 8px;
+      background-color: #f9f9f9;
+    }
+
+    .image-upload {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-bottom: 15px;
+    }
+
+    .image-upload-frame {
+      width: 75px;
+      height: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border: 1px dashed #888;
+      background-color: #f0f0f0;
+      cursor: pointer;
+      font-size: 2rem;
+      color: #666;
+      position: relative;
+    }
+
+    .image-upload-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      height: 100%;
+    }
+    .upload-icon-container {
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.3);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .upload-icon-container:hover {
+      opacity: 1;
+    }
+
+
+    .upload-icon {
+      font-size: 2rem;
+      color: #666;
+    }
+
+
+    .image-preview {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: none;
+    }
+
+    .pagination-bar {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .pagination-bar a {
+      display: inline-block;
+      margin: 0 5px;
+      padding: 5px 10px;
+      text-decoration: none;
+      color: #444;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+    }
+
+    .pagination-bar a:hover {
+      background-color: #ccc;
+    }
+
+    .pagination-bar .active {
+      font-weight: bold;
+      background-color: #444;
+      color: white;
+    }
+
+    .pagination-bar .prev,
+    .pagination-bar .next {
+      font-weight: bold;
+    }
+
+    .pagination-bar .prev:hover,
+    .pagination-bar .next:hover {
+      background-color: #ccc;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px; /* Increased padding to give some space */
+      position: relative; /* Ensure footer is at the bottom of content */
+      width: 100%;
+      margin-top: 20px; /* Add some margin above footer */
+    }
+
+    .add-to-basket {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding: 10px;
+    }
+
+    .quantity-input {
+      width: 60px;
+      margin-right: 10px;
+    }
+
+    .add-to-basket-button {
+      background-color: #666;
+      color: white;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .add-to-basket-button:hover {
+      background-color: #555;
+    }
+
+    .account-balance {
+      font-weight: bold;
+      color: #4CAF50; /* Green color */
+      margin-left: 15px;
+    }
+
+  .modal-dialog {
+    max-width: 900px;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    font-weight: bold;
+}
+
+.text-button {
+  all: unset; /* Resets all button-specific styles */
+  color: white; /* Makes the text white */
+  cursor: pointer; /* Indicates it's clickable */
+}
+
+.text-button:hover {
+  text-decoration: underline; /* Optional: adds an underline on hover */
+}
+
+
+.user-info {
+  display: flex; /* Horizontal alignment for details and links */
+  align-items: center; /* Vertically center all elements */
+  gap: 20px; /* Space between user-details and user-links */
+  color: white; /* Set text color to white */
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column; /* Stack span and p vertically */
+  margin: 0; /* Reset any default margin */
+}
+
+.user-details span,
+.user-details p {
+  margin: 0; /* Remove default margins */
+  white-space: nowrap; /* Prevent text wrapping in span and p */
+}
+
+.user-links {
+  display: flex; /* Horizontal alignment for links */
+  align-items: center; /* Vertically center links within the section */
+  margin-right: 5px;
+}
+
+.user-link {
+  white-space: nowrap; /* Prevent text wrapping for links */
+  color: white; /* Set link color to white */
+  text-decoration: none; /* Remove underline from links */
+  margin-right: 5px;
+}
+
+.user-link:hover {
+  text-decoration: underline; /* Add underline on hover */
+}
+
+
+#filterForm {
+  display: flex;
+  justify-content: center; /* Center the dropdown horizontally */
+  align-items: center; /* Vertically align the dropdown */
+}
+
+/* Dropdown (select) styling */
+#filterForm select {
+  width: 100px; /* Adjust dropdown width */
+  height: 30px; /* Set height of the dropdown */
+  font-size: 12px; /* Reduce font size */
+  padding: 0 5px; /* Add padding for usability */
+  text-overflow: ellipsis; /* Handle text overflow */
+  margin: 0; /* Ensure no extra margin */
+}
+
+/* Styling for the search form (input + button) */
+form input[type="text"] {
+  padding: 8px;
+  width: 250px; /* Set width for the search input */
+  margin-right: 10px; /* Space between search input and button */
+}
+
+form button {
+  padding: 8px 16px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #45a049;
+}
+
+/* Price Range form styling */
+.price-range-container {
+  display: flex;
+  justify-content: center; /* Center items horizontally */
+  align-items: center; /* Align items vertically */
+  gap: 10px; /* Space between the button and inputs */
+  width: 100%; /* Ensure full width */
+  margin-top: 0; /* Remove margin between nav bars */
+}
+
+.price-range-form {
+  display: flex;
+  justify-content: flex-start; /* Start from the left, button on left, inputs after */
+  align-items: center; /* Center vertically */
+  gap: 10px; /* Space between button and inputs */
+  width: 100%; /* Take up full width */
+}
+
+/* Button for the price range form */
+
+    .price-range-form button {
+  padding: 6px 12px;
+  background-color: #666;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+
+.price-range-form button:hover {
+  background-color: #666;
+}
+
+/* Price range input styling */
+.price-range-form input[type="number"] {
+  width: 100px; /* Set width for min and max price input fields */
+  height: 30px; /* Set height for consistency */
+  font-size: 14px; /* Set font size */
+  padding: 0 10px; /* Add padding for better usability */
+}
+
+
+   #searchForm {
+      display: flex;
+      justify-content: center;
+      gap: 10px; /* Space between input and button */
+    }
+      #divNav {
+      display: flex;
+      justify-content: center; /* Center the forms horizontally */
+      align-items: center;     /* Align items vertically */
+      gap: 20px;               /* Space between the forms */
+      padding: 10px;           /* Add some padding around the container */
+    }
+    #divNav form {
+      display: flex;
+      align-items: center;    /* Align form elements vertically */
+      gap: 10px;              /* Space between form elements */
+    }
+    #divNav input,
+    #divNav select {
+      padding: 5px;
+      font-size: 14px;
+    }
+    #divNav button {
+      padding: 5px 10px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+       #divNav label {
+      color: white;           /* Make the label text white */
+    }
+
+
+
+
+
+
+
+  </style>
+  <script>
+
+
+
+    function setDeleteBookId(bookId) {
+    // Update the hidden input with the selected book ID
+    document.getElementById('deleteBookId').value = bookId;
+
+    // Optionally log for debugging
+    console.log("Book ID set for deletion: ", bookId);
+  }
+
+
+
+let categoryList = []; // Global array to store categories
+
+// Submit the category from the modal
+function submitCategory() {
+  const categoryInput = document.getElementById('categoryInput').value.trim();
+
+  if (categoryInput) {
+    // Add category to the global list
+    categoryList.push(categoryInput);
+
+    // Create a "pill" for the category
+    const categoryPill = document.createElement('div');
+    categoryPill.className = 'category-pill';
+    categoryPill.textContent = categoryInput;
+
+    // Append the pill to the display container
+    document.getElementById('categoryDisplayContainer').appendChild(categoryPill);
+
+    // Update the hidden input with the comma-separated list
+    const hiddenInput = document.querySelector('input[name="categoryList"]');
+    hiddenInput.value = categoryList.join(',');
+
+    // Close the modal after submission
+    closeCategoryModal();
+  }
+}
+
+// Open the category modal
+function openCategoryModal() {
+  document.getElementById('categoryModal').style.display = 'block';
+}
+
+// Close the category modal
+function closeCategoryModal() {
+  document.getElementById('categoryModal').style.display = 'none';
+  document.getElementById('categoryInput').value = ''; // Clear the input field
+}
+
+
+let authorList = []; // Global array to store categories
+
+// Submit the author from the modal
+function submitAuthor() {
+  const authorInput = document.getElementById('authorInput').value.trim();
+
+  if (authorInput) {
+    // Add category to the global list
+    authorList.push(authorInput);
+
+    // Create a "pill" for the category
+    const authorPill = document.createElement('div');
+    authorPill.className = 'author-pill';
+    authorPill.textContent = authorInput;
+
+    // Append the pill to the display container
+    document.getElementById('authorDisplayContainer').appendChild(authorPill);
+
+    // Update the hidden input with the comma-separated list
+    const hiddenInput = document.querySelector('input[name="authorList"]');
+    hiddenInput.value = authorList.join(',');
+
+    // Close the modal after submission
+    closeAuthorModal();
+  }
+}
+
+// Open the category modal
+function openAuthorModal() {
+  document.getElementById('authorModal').style.display = 'block';
+}
+
+// Close the category modal
+function closeAuthorModal() {
+  document.getElementById('authorModal').style.display = 'none';
+  document.getElementById('authorInput').value = ''; // Clear the input field
+}
+
+
+
+
+function openEditCategoryModal(bookId) {
+  // Open the category modal for the given book
+  document.getElementById(`editCategoryModal-${bookId}`).style.display = 'block';
+}
+
+
+function closeEditCategoryModal(bookId) {
+  // Close the category modal for the given book
+  document.getElementById(`editCategoryModal-${bookId}`).style.display = 'none';
+  // Clear the category input
+  document.getElementById(`editCategoryInput-${bookId}`).value = '';
+}
+
+
+
+
+
+function submitEditCategory(bookId) {
+  const categoryInput = document.getElementById(`editCategoryInput-${bookId}`).value.trim();
+  if (categoryInput) {
+
+
+    // Get the hidden input storing the list of categories
+    const hiddenInput = document.getElementById(`editCategoryList-${bookId}`);
+    // Parse the existing categories, append the new one, and update the input value
+    let categories = hiddenInput.value ? hiddenInput.value.split(',') : [];
+    categories.push(categoryInput);
+    hiddenInput.value = categories.join(',');
+
+    // Close the modal
+    closeEditCategoryModal(bookId);
+    }
+}
+
+
+
+function updateCategoryList(bookId) {
+  // Get the input fields in the editCategoryDisplayContainer
+  const categoryInputs = document.querySelectorAll(`#editCategoryDisplayContainer-${bookId} input.form-control`);
+
+  // Create an array of the current category values
+  const categoryValues = Array.from(categoryInputs).map(input => input.value);
+
+  // Update the editCategoryList input field with the new values
+  const editCategoryListInput = document.getElementById(`editCategoryList-${bookId}`);
+  editCategoryListInput.value = categoryValues.join(',');
+}
+
+
+
+function openEditAuthorModal(bookId) {
+  // Open the author modal for the given book
+  document.getElementById(`editAuthorModal-${bookId}`).style.display = 'block';
+}
+
+function closeEditAuthorModal(bookId) {
+  // Close the author modal for the given book
+  document.getElementById(`editAuthorModal-${bookId}`).style.display = 'none';
+  // Clear the author input
+  document.getElementById(`editAuthorInput-${bookId}`).value = '';
+}
+
+function submitEditAuthor(bookId) {
+  const authorInput = document.getElementById(`editAuthorInput-${bookId}`).value.trim();
+  if (authorInput) {
+
+    // Get the hidden input storing the list of authors
+    const hiddenInput = document.querySelector(`[name="editAuthorList-${bookId}"]`);
+    // Parse the existing authors, append the new one, and update the input value
+    let authors = hiddenInput.value ? hiddenInput.value.split(',') : [];
+    authors.push(authorInput);
+    hiddenInput.value = authors.join(',');
+
+    // Close the modal
+    closeEditAuthorModal(bookId);
+  }
+}
+
+
+
+
+    // Toggle Add Book Form visibility
+    function toggleAddBook() {
+        const container = document.getElementById("addBookContainer");
+        container.style.display = container.style.display === "none" ? "block" : "none";
+    }
+
+
+    // Toggle Edit Book Form visibility for a specific book
+    function toggleEditBook(bookId) {
+        const editContainer = document.getElementById(`editBookContainer-${bookId}`);
+
+        // Toggle the visibility of the corresponding edit container
+        if (editContainer) {
+            const isCurrentlyVisible = editContainer.style.display === "block";
+            editContainer.style.display = isCurrentlyVisible ? "none" : "block";
+        }
+    }
+
+
+
+
+
+    // Preview the uploaded image
+    function previewImage(event, previewId) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const output = document.getElementById(previewId);
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+    }
+
+
+      function setAction() {
+    const form = document.getElementById('filterForm');
+    const sortValue = document.getElementById('sortBy').value;
+
+    if (sortValue === "price" || sortValue === "priceDesc") {
+      form.action = '/home/filterByPrice';
+    } else if (sortValue === "title" || sortValue === "titleDesc") {
+      form.action = '/home/filterByTitle';
+    } else {
+      form.action = ''; // Default action, if nothing is selected
+    }
+  }
+
+  function submitForm() {
+  const form = document.getElementById('filterForm');
+  const sortValue = document.getElementById('sortBy').value;
+
+  // Set the form action based on the selected value
+  if (sortValue === "price" || sortValue === "priceDesc") {
+    form.action = '/home/filterByPrice';
+  } else if (sortValue === "title" || sortValue === "titleDesc") {
+    form.action = '/home/filterByTitle';
+  } else {
+    form.action = ''; // Default action, if no selection is made
+  }
+
+  // Submit the form
+  form.submit();
+}
+  </script>
+</head>
+<body>
+
+<header>
+  <img th:src="@{/images/banner.jpg}" alt="Welcome to the Bookstore" src="">
+</header>
+
+
+
+<nav>
+  <div class="nav-left">
+    <a th:href="@{/admin/home}">Home</a>
+  </div>
+
+
+  <div class="nav-center">
+
+    <div id="divNav">
+
+      <form id="filterForm" method="get" action="">
+        <label for="sortBy">Sort By:</label>
+        <select name="sort" id="sortBy" onchange="submitForm()">
+          <option value="">-- Select Sorting Option --</option>
+          <option value="price">Price (Low to High)</option>
+          <option value="priceDesc">Price (High to Low)</option>
+          <option value="title">Title (A to Z)</option>
+          <option value="titleDesc">Title (Z to A)</option>
+        </select>
+      </form>
+
+      <form action="/admin/searchResults" method="get">
+        <input type="text" name="query" placeholder="Search books..." required>
+        <button type="submit">Search</button>
+      </form>
+
+    </div>
+
+    <div class="nav-center price-range-container">
+      <!-- Price Range Form -->
+      <form method="get" action="/home/filterByPriceRange" class="price-range-form">
+        <button type="submit">Filter by Price Range</button>
+        <input type="number" name="minPrice" id="minPrice" value="${minPrice}" placeholder="Min">
+        <input type="number" name="maxPrice" id="maxPrice" value="${maxPrice}" placeholder="Max">
+      </form>
+    </div>
+
+  </div>
+
+  <div class="nav-right">
+      <div class="user-links">
+<!--        <button type="button" data-bs-toggle="modal" data-bs-target="#signupModal" class="text-button" style="margin-right: 20px;">-->
+<!--          Sign up new Admin-->
+<!--        </button>-->
+        <a href="/admin/dashboard" class="user-link">Dashboard</a>
+        <a href="/logout" class="user-link">Logout</a>
+      </div>
+    </div>
+
+  </div>
+
+</nav>
+
+<div style="margin-top: 20px; text-align: center; font-size: 24px; font-weight: bold;" th:if="${totalItems == 0}">
+  No books found
+</div>
+
+
+
+<div th:if="${param.success}" class="alert alert-success" role="alert">
+  Logged in  successfully
+</div>
+
+
+
+<div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+  <form th:action="@{/admin/signup}" method="post">
+    <div class="modal-dialog modal-dialog-centered" style="max-width: 900px;">
+      <div class="modal-content">
+        <!-- Modal Header -->
+        <div class="modal-header bg-primary text-white">
+          <h5 class="modal-title" id="signupModalLabel">Create an Account</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <!-- Modal Body -->
+        <div th:if="${param.signupError}" class="alert alert-danger" role="alert">
+          User already exists
+        </div>
+        <div class="modal-body">
+          <div class="form-container">
+            <h2 class="text-center">Signup</h2>
+            <!-- Username -->
+            <div class="mb-3">
+              <input
+                  type="text"
+                  name="username"
+                  class="form-control"
+                  placeholder="Username"
+                  required>
+            </div>
+            <!-- Email -->
+            <div class="mb-3">
+              <input
+                  type="email"
+                  name="email"
+                  class="form-control"
+                  placeholder="Email"
+                  required>
+            </div>
+            <!-- Password -->
+            <div class="mb-3">
+              <input
+                  type="password"
+                  name="password"
+                  class="form-control"
+                  placeholder="Password"
+                  required>
+            </div>
+            <!-- Submit Button -->
+            <div class="text-center">
+              <button type="submit" class="btn btn-success btn-lg">Signup</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="container">
+
+  <!-- Add Book Button -->
+  <div class="d-flex justify-content-start">
+    <button type="button" class="btn btn-primary mb-3" onclick="toggleAddBook()">+ Add Book</button>
+  </div>
+
+<!--   Add Book Form-->
+  <div id="addBookContainer" class="add-book-container">
+    <form th:action="@{/admin/add}" method="post" enctype="multipart/form-data">
+      <div class="image-upload">
+        <label for="imageUpload" class="image-upload-frame">
+          <span id="uploadIcon" style="display: block;">+</span>
+          <img id="imagePreview" class="image-preview" alt="Preview">
+        </label>
+        <input type="file" id="imageUpload" name="image" accept="image/*" onchange="previewImage(event, 'imagePreview')" style="display: none;">
+      </div>
+
+      <input type="text" class="form-control mb-3" name="title" placeholder="Add title" required>
+
+
+      <div class="form-group">
+        <!-- Container for displaying added authors -->
+        <div id="authorDisplayContainer" class="d-flex flex-wrap mb-3"></div>
+
+        <!-- + Category Button -->
+        <button type="button" class="btn btn-secondary" onclick="openAuthorModal()">+ Author</button>
+
+        <!-- Hidden input to store the final list of categories -->
+        <input  type="hidden" name="authorList">
+      </div>
+
+      <!-- Modal for entering an author-->
+      <div id="authorModal" class="modal" tabindex="-1" style="display: none;">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Author</h5>
+              <button type="button" class="btn-close" onclick="closeAuthorModal()" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Please enter an author:</p>
+              <input type="text" id="authorInput" class="form-control" placeholder="Enter author">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" onclick="submitAuthor()">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+      <div class="form-group">
+        <!-- Container for displaying added categories -->
+        <div id="categoryDisplayContainer" class="d-flex flex-wrap mb-3"></div>
+
+        <!-- + Category Button -->
+        <button type="button" class="btn btn-secondary mb-4" onclick="openCategoryModal()">+ Category</button>
+
+        <!-- Hidden input to store the final list of categories -->
+        <input type="hidden" name="categoryList">
+      </div>
+
+      <!-- Modal for entering a category -->
+      <div id="categoryModal" class="modal" tabindex="-1" style="display: none;">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Add Category</h5>
+              <button type="button" class="btn-close" onclick="closeCategoryModal()" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <p>Please enter a category:</p>
+              <input type="text" id="categoryInput" class="form-control" placeholder="Enter category">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary" onclick="submitCategory()">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <textarea class="form-control mb-3" name="description" placeholder="Add description"></textarea>
+      <input type="text" class="form-control mb-3" name="isbn" placeholder="Add ISBN" required>
+      <input type="number" step="0.01" class="form-control mb-3" name="price" placeholder="Add price" required>
+
+      <button type="submit" class="btn btn-primary">Save Book</button>
+    </form>
+  </div>
+
+
+
+  <!-- Display Books -->
+  <div th:each="book : ${books}" class="book-container">
+    <div class="book-image" th:if="${book.image == null}">No picture</div>
+<!--    <img th:src="@{${book.image}}" th:if="${book.image != null}" class="book-image" alt="Book Image">-->
+    <img th:src="'data:image/jpeg;base64,' + ${book.imageDataBase64}"  th:if="${book.image != null}" class="book-image" alt="Book Image">
+
+    <div class="book-info">
+      <div class="book-title" th:text="${book.title}">Book Title</div>
+      <p>by
+        <span th:each="author, iterStat : ${book.author}"
+              th:utext="${author + (iterStat.last ? '' : ', ')}"></span>
+      </p>
+      <p>Categories:
+        <span th:each="category : ${book.category}"
+              th:utext="${category + '&nbsp;&nbsp;&nbsp;'}"></span>
+      </p>
+      <p>ISBN: <span th:text="${book.isbn}">ISBN</span></p>
+      <p>Price: $<span th:text="${book.price}">Price</span></p>
+      <p>Id: <span th:text="${book.id}">Id</span></p>
+    </div>
+
+
+
+    <!-- Edit Book Form (Hidden by Default) -->
+    <div th:id="|editBookContainer-${book.id}|" class="edit-book-container">
+      <form th:action="@{/admin/edit/{id}(id=${book.id})}" method="post" enctype="multipart/form-data">
+
+
+        <div class="image-upload">
+          <label th:for="|editImageUpload-${book.id}|" class="image-upload-frame">
+            <div class="image-upload-content">
+              <!--            <span style="display: block;">+</span>-->
+              <img th:id="|editImagePreview-${book.id}|" th:src="'data:image/jpeg;base64,' + ${book.imageDataBase64}" th:if="${book.image != null}" class="image-preview" alt="Preview" style="display: block;">
+              <img th:id="|editImagePreview-${book.id}|" src="#" class="image-preview" alt="Preview" style="display: none;">
+              <div class="upload-icon-container">
+                <span class="upload-icon">+</span>
+              </div>
+            </div>
+          </label>
+          <input type="file" th:id="|editImageUpload-${book.id}|" name="image" accept="image/*" th:onchange="|previewImage(event, 'editImagePreview-${book.id}')|" style="display: none;">
+        </div>
+
+        <input type="text" class="form-control mb-3" name="title" th:value="${book.title}" required>
+
+        <div class="form-group d-flex align-items-center" id="displayAuthors">
+          <input th:id="|editAuthorList-${book.id}|" class="form-control me-2 mb-4" th:name="|editAuthorList-${book.id}|" th:value="${#strings.arrayJoin(book.author, ',')}">
+          <button type="button" class="btn btn-secondary text-nowrap mb-4" th:onclick="|openEditAuthorModal('${book.id}')|">+ Author</button>
+        </div>
+
+
+        <!-- Modal for entering an author -->
+        <div th:id="|editAuthorModal-${book.id}|" class="modal" tabindex="-1" style="display: none;">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Add Author</h5>
+                <button type="button" class="btn-close" th:onclick="|closeEditAuthorModal('${book.id}')|" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>Please enter an author:</p>
+                <input type="text" th:id="|editAuthorInput-${book.id}|" class="form-control" placeholder="Enter author">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" th:onclick="|submitEditAuthor('${book.id}')|">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="form-group d-flex align-items-center" id="displayCategories">
+          <input th:id="|editCategoryList-${book.id}|" class="form-control me-2 mb-4" th:name="|editCategoryList-${book.id}|" th:value="${#strings.arrayJoin(book.category, ',')}">
+          <button type="button" class="btn btn-secondary text-nowrap mb-4" th:onclick="|openEditCategoryModal('${book.id}')|">+ Category</button>
+        </div>
+
+
+
+        <!-- Modal for entering a category -->
+        <div th:id="|editCategoryModal-${book.id}|" class="modal" tabindex="-1" style="display: none;">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title">Add Category</h5>
+                <button type="button" class="btn-close" th:onclick="|closeEditCategoryModal('${book.id}')|" aria-label="Close"></button>
+              </div>
+              <div class="modal-body">
+                <p>Please enter a category:</p>
+                <input type="text" th:id="|editCategoryInput-${book.id}|" class="form-control" placeholder="Enter category">
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-primary" th:onclick="|submitEditCategory('${book.id}')|">Submit</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+        <textarea class="form-control mb-3" name="description" th:text="${book.description}"></textarea>
+        <input type="text" class="form-control mb-3" name="isbn" th:value="${book.isbn}" required>
+        <input type="number" step="0.01" class="form-control mb-3" name="price" th:value="${book.price}" required>
+
+
+          <button type="submit" class="btn btn-primary">Update Book</button>
+
+      </form>
+    </div>
+
+
+    <!-- Button to open the confirmation modal -->
+    <div class="d-flex mt-2">
+      <button class="btn btn-secondary me-2" th:onclick="|toggleEditBook('${book.id}')|">Edit</button>
+            <form th:action="@{/admin/delete/{id}(id=${book.id})}" method="post" style="display: inline;">
+              <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this book?');">Delete</button>
+            </form>
+  </div>
+
+
+
+
+  </div>
+</div>
+
+
+
+
+<div class="pagination-bar">
+  <!-- Previous Page Link -->
+  <span th:if="${currentPage > 0}">
+        <a th:href="@{'?query=' + (${query != null ? query : ''})
+                     + '&minPrice=' + (${minPrice != null ? minPrice : ''})
+                     + '&maxPrice=' + (${maxPrice != null ? maxPrice : ''})
+                     + '&sort=' + (${sort != null ? sort : ''})
+                     + '&page=' + (${currentPage - 1})
+                     + '&size=10'}"
+           class="prev">Prev</a>
+    </span>
+
+  <!-- Page Numbers -->
+  <span th:each="pageNum : ${#numbers.sequence(0, totalPages - 1)}">
+        <a th:href="@{'?query=' + (${query != null ? query : ''})
+                     + '&minPrice=' + (${minPrice != null ? minPrice : ''})
+                     + '&maxPrice=' + (${maxPrice != null ? maxPrice : ''})
+                     + '&sort=' + (${sort != null ? sort : ''})
+                     + '&page=' + ${pageNum}
+                     + '&size=10'}"
+           th:text="${pageNum + 1}"
+           th:classappend="${pageNum == currentPage ? 'active' : ''}"></a>
+    </span>
+
+  <!-- Next Page Link -->
+  <span th:if="${currentPage < totalPages - 1}">
+        <a th:href="@{'?query=' + (${query != null ? query : ''})
+                     + '&minPrice=' + (${minPrice != null ? minPrice : ''})
+                     + '&maxPrice=' + (${maxPrice != null ? maxPrice : ''})
+                     + '&sort=' + (${sort != null ? sort : ''})
+                     + '&page=' + (${currentPage + 1})
+                     + '&size=10'}"
+           class="next">Next</a>
+    </span>
+</div>
+
+
+
+<footer>
+  <p>&copy; 2024 Bookstore. All rights reserved.</p>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"></script>
+</body>
+</html>

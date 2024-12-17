@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" th:href="@{/css/admin.css}">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+  <style>
+    body {
+
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    header {
+      width: 100%;
+      height: 110px;
+      position: relative;
+      overflow: hidden;
+    }
+    header img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    nav {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 20px;
+      background-color: #444;
+    }
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin: 0 15px;
+      padding: 8px 15px;
+      border-radius: 5px;
+    }
+    nav a:hover {
+      background-color: #666;
+    }
+    .nav-left {
+      display: flex;
+      align-items: center;
+    }
+    .nav-center {
+      justify-content: center; /* Center the forms horizontally */
+      align-items: center;     /* Vertically align the items */
+      gap: 20px;               /* Space between filter form and search form */
+      flex-grow: 1;            /* Allow this container to grow and fill available space */
+      margin-left: 0px;
+    }
+
+    .nav-center form {
+      display: flex;
+      justify-content: center; /* Center the form contents */
+      align-items: center;     /* Align form elements vertically */
+    }
+    .nav-right {
+      flex: 1;
+      text-align: right;
+    }
+    .nav-center input[type="text"] {
+      padding: 10px;
+      width: 250px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .nav-center button {
+      padding: 6px 12px;
+      margin-left: 10px;
+      background-color: #666;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+    .nav-center button:hover {
+      background-color: #555;
+    }
+
+    .main-content {
+      padding: 20px;
+    }
+
+    form input {
+      padding: 10px;
+      margin: 10px 0;
+      width: 100%;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+      font-size: 14px;
+    }
+    form button {
+      padding: 10px 20px;
+      background-color: #444;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: auto;
+      font-size: 14px;
+    }
+    form button:hover {
+      background-color: #333;
+    }
+    .form-container {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 20px;
+      background-color: #F9F9F9;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+    .form-container h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    #basket p {
+      font-size: 18px;
+      font-weight: bold;
+      text-align: center;
+      margin-top: 20px;
+    }
+    .basket-items {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .basket-items .item {
+      padding: 10px;
+      background-color: #EAEAEA;
+      margin: 5px;
+      border-radius: 5px;
+      width: 80%;
+      text-align: center;
+    }
+    .nav-right img {
+      width: 30px;
+      height: 30px;
+      vertical-align: middle;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: white;
+      padding: 10px 15px;
+      background-color: #444;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    nav a:hover {
+      background-color: #555;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: space-evenly;
+      padding: 20px;
+      background-color: #ffffff;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      max-width: 800px;
+      margin: 20px auto;
+    }
+
+    .stat-item {
+      text-align: center;
+      flex: 1;
+      margin: 0 10px;
+      padding: 10px;
+    }
+
+    .stat-title {
+      font-size: 1rem;
+      color: #666;
+      margin-bottom: 5px;
+      font-weight: 500;
+    }
+
+    .stat-value {
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #333;
+      margin: 0;
+    }
+
+    .recent-orders {
+      margin: 20px;
+    }
+
+    .recent-orders h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      color: #444;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 auto;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    table th, table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: center;
+    }
+
+    table th {
+      background-color: #333;
+      color: white;
+    }
+
+    table tbody tr:nth-child(odd) {
+      background-color: #f9f9f9;
+    }
+
+    table tbody tr:hover {
+      background-color: #f1f1f1;
+    }
+
+    footer {
+      background-color: #333;
+      color: white;
+      text-align: center;
+      padding: 20px; /* Increased padding to give some space */
+      position: relative; /* Ensure footer is at the bottom of content */
+      width: 100%;
+      margin-top: 50px; /* Add some margin above footer */
+    }
+
+    nav button {
+  color: white;
+  text-decoration: none;
+  padding: 10px 15px;
+  background-color: #444;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+nav button:hover {
+  background-color: #555;
+}
+
+  </style>
+</head>
+<body>
+
+
+  <header>
+    <img th:src="@{/images/banner.jpg}" alt="Welcome to the Bookstore" src="">
+  </header>
+
+<nav>
+  <a th:href="@{/admin/dashboard}">Dashboard</a>
+  <a th:href="@{/admin/home}">Manage Books</a>
+<!--  <a th:href="@{/admin/home}">New Admin</a>-->
+          <button type="button" data-bs-toggle="modal" data-bs-target="#signupModal" class="text-button" style="margin-right: 20px;">
+            Sign up new Admin
+          </button>
+</nav>
+
+  <div th:if="${param.signupSuccess}" class="alert alert-success" role="alert">
+    Signed up successfully
+  </div>
+
+
+  <section class="stats">
+    <div class="stat-item">
+      <h3 class="stat-title">Users</h3>
+      <p class="stat-value" th:text="${userCount}">0</p>
+    </div>
+    <div class="stat-item">
+      <h3 class="stat-title">Books</h3>
+      <p class="stat-value" th:text="${bookCount}">0</p>
+    </div>
+    <div class="stat-item">
+      <h3 class="stat-title">Orders</h3>
+      <p class="stat-value" th:text="${orderCount}">0</p>
+    </div>
+  </section>
+
+
+<section class="recent-orders">
+  <h2>Recent Orders</h2>
+  <table>
+    <thead>
+    <tr>
+      <th>Order ID</th>
+      <th>Customer</th>
+      <th>Date</th>
+      <th>Total</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="order : ${recentOrders}">
+      <td th:text="${order.id}"></td>
+      <td th:text="${order.accountEntity.username}"></td>
+      <td th:text="${order.date}"></td>
+      <td th:text="${order.totalAmount}"></td>
+    </tr>
+    </tbody>
+  </table>
+</section>
+
+
+
+
+
+
+  <div class="modal fade" id="signupModal" tabindex="-1" aria-labelledby="signupModalLabel" aria-hidden="true">
+    <form th:action="@{/admin/signup}" method="post">
+      <div class="modal-dialog modal-dialog-centered" style="max-width: 900px;">
+        <div class="modal-content">
+          <!-- Modal Header -->
+          <div class="modal-header bg-primary text-white">
+            <h5 class="modal-title" id="signupModalLabel">Create an Account</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <!-- Modal Body -->
+          <div th:if="${param.signupError}" class="alert alert-danger" role="alert">
+            User already exists
+          </div>
+          <div class="modal-body">
+            <div class="form-container">
+              <h2 class="text-center">Signup</h2>
+              <!-- Username -->
+              <div class="mb-3">
+                <input
+                    type="text"
+                    name="username"
+                    class="form-control"
+                    placeholder="Username"
+                    required>
+              </div>
+              <!-- Email -->
+              <div class="mb-3">
+                <input
+                    type="email"
+                    name="email"
+                    class="form-control"
+                    placeholder="Email"
+                    required>
+              </div>
+              <!-- Password -->
+              <div class="mb-3">
+                <input
+                    type="password"
+                    name="password"
+                    class="form-control"
+                    placeholder="Password"
+                    required>
+              </div>
+              <!-- Submit Button -->
+              <div class="text-center">
+                <button type="submit" class="btn btn-success btn-lg">Signup</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+
+
+<footer>
+  <p>Admin Panel | Role: Administrator</p>
+</footer>
+</body>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+  // Check if the URL contains the desired query parameters
+  const params = new URLSearchParams(window.location.search);
+
+  // Show the signup modal if 'signupError' parameter exists
+  if (params.has('signupError')) {
+    const signupModal = new bootstrap.Modal(document.getElementById('signupModal'));
+    signupModal.show();
+  }
+});
+
+
+ document.addEventListener("DOMContentLoaded", function() {
+    var alerts = document.getElementsByClassName("alert");
+    Array.from(alerts).forEach(function(alert) {
+      setTimeout(function() {
+        alert.style.display = "none";
+      }, 10000);
+    });
+  });
+
+
+
+
+
+
+</script>
+</html>

@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase History - Bookstore</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"></script>
+    <style>
+        body {
+
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            width: 100%;
+            height: 110px;
+            position: relative;
+            overflow: hidden;
+        }
+        header img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: #444;
+            color: white;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 15px;
+            border-radius: 5px;
+        }
+
+        nav a:hover {
+            background-color: #666;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .nav-center {
+            flex: 2;
+            display: flex;
+            justify-content: center;
+        }
+
+        .nav-right {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            flex: 1;
+        }
+
+        .welcome-message {
+            margin-right: 15px;
+            font-weight: bold;
+        }
+
+        .balance-info {
+            margin-right: 15px;
+            font-weight: bold;
+            color: #FFD700; /* Gold color for balance */
+        }
+
+        .nav-right img {
+            width: 30px;
+            height: 30px;
+            margin: 0 10px;
+        }
+
+        .logout-button {
+            background-color: #dc3545; /* Bootstrap danger color */
+            padding: 8px 15px;
+            color: white;
+            border-radius: 5px;
+            text-decoration: none;
+            margin-left: 10px;
+        }
+
+        .logout-button:hover {
+            background-color: #c82333;
+        }
+        .welcome-message {
+            padding: 20px;
+            text-align: center;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        .content {
+            padding: 20px;
+        }
+        .content h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .main-content {
+            padding: 20px;
+        }
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            bottom: 0;
+        }
+        form input {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+        }
+        form button {
+            padding: 10px 20px;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: auto;
+            font-size: 14px;
+        }
+        form button:hover {
+            background-color: #333;
+        }
+        .form-container {
+            max-width: 400px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #F9F9F9;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .form-container h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        #basket p {
+            font-size: 18px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 20px;
+        }
+        .basket-items {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .basket-items .item {
+            padding: 10px;
+            background-color: #EAEAEA;
+            margin: 5px;
+            border-radius: 5px;
+            width: 80%;
+            text-align: center;
+        }
+        .nav-right img {
+            width: 30px;
+            height: 30px;
+            vertical-align: middle;
+        }
+
+
+        .text-button {
+            all: unset; /* Resets all button-specific styles */
+            color: white; /* Makes the text white */
+            cursor: pointer; /* Indicates it's clickable */
+        }
+
+        .text-button:hover {
+            text-decoration: underline; /* Optional: adds an underline on hover */
+        }
+
+        .user-info {
+            display: flex; /* Horizontal alignment for details and links */
+            align-items: center; /* Vertically center all elements */
+            gap: 20px; /* Space between user-details and user-links */
+            color: white; /* Set text color to white */
+        }
+
+        .user-details {
+            display: flex;
+            flex-direction: column;
+            margin: 0;
+        }
+        .user-details span,
+        .user-details p {
+            margin: 0;
+            white-space: nowrap;
+        }
+
+        .user-links {
+            display: flex; /* Horizontal alignment for links */
+            align-items: center; /* Vertically center links within the section */
+            margin-right: 5px;
+        }
+
+        .user-link {
+            white-space: nowrap; /* Prevent text wrapping for links */
+            color: white; /* Set link color to white */
+            text-decoration: none; /* Remove underline from links */
+            margin-right: 5px;
+        }
+
+        .user-link:hover {
+            text-decoration: underline; /* Add underline on hover */
+        }
+
+
+
+        /* Styling for the search form (input + button) */
+        form input[type="text"] {
+            padding: 8px;
+            width: 250px; /* Set width for the search input */
+            margin-right: 10px; /* Space between search input and button */
+        }
+
+        form button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #45a049;
+        }
+
+
+        #divNav form {
+            display: flex;
+            align-items: center;    /* Align form elements vertically */
+            gap: 10px;              /* Space between form elements */
+        }
+        #divNav input,
+        #divNav select {
+            padding: 5px;
+            font-size: 14px;
+        }
+        #divNav button {
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+        #divNav label {
+            color: white;           /* Make the label text white */
+        }
+
+
+        .main-content {
+            width: 80%;
+            margin: 20px auto;
+            font-size: 16px;
+            color: #333;
+            text-align: center;
+            padding: 30px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .main-content h2 {
+            color: #444;
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-transform: uppercase; /* Making the title uppercase */
+            letter-spacing: 2px; /* Slight spacing between letters for better readability */
+        }
+
+        .intro-text {
+            color: #555;
+            font-size: 18px;
+            font-weight: normal;
+            margin-bottom: 30px;
+            line-height: 1.6; /* Adjust the line height for better spacing between lines */
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+
+        .purchase-history-table {
+            width: 100%;
+            margin-top: 18px;
+            margin-bottom: 40px; /* Add bottom margin to create space between tables */
+            border-collapse: collapse;
+            table-layout: fixed;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgb(0, 0, 0, 0.1);
+        }
+        .order-header {
+            font-size: 18px; /* Smaller font size for the order number */
+            font-weight: normal; /* You can adjust the weight if you don't want it bold */
+        }
+
+        .order-date {
+            font-size: 18px; /* Smaller font size for the date */
+            color: #666; /* Lighter color for the date */
+        }
+        .purchase-history-header {
+            font-family: Arial, sans-serif; /* Built-in font example */
+            font-size: 20px;
+            color: #454545;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .purchase-history-table th, .purchase-history-table td {
+            padding: 15px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .purchase-history-table th {
+            background-color: #f5f3f3;
+            color: #2c2c2c;
+            text-transform: uppercase;
+        }
+
+        .purchase-history-table tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        .purchase-history-table tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            width: 100%;
+            bottom: 0;
+        }
+
+        h2 {
+            color: #444;
+            text-align: center;
+            margin-bottom: 50px;
+            font-size: 24px;
+            margin-top: 20px;
+        }
+
+        /* Responsive Design */
+        @media screen and (max-width: 768px) {
+            .main-content {
+                width: 90%;
+            }
+
+            .purchase-history-table th, .purchase-history-table td {
+                padding: 8px 10px;
+                font-size: 12px;
+            }
+        }
+
+        .buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .buttons button {
+            padding: 12px 24px;
+            margin: 10px 10px;
+            background-color: #444;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .buttons button:hover {
+            background-color: #333;
+        }
+
+        .buttons button:disabled {
+            background-color: #bbb;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <img th:src="@{/images/banner.jpg}" alt="Welcome to the Bookstore">
+</header>
+
+
+<nav>
+    <div class="nav-left">
+        <a th:href="@{/home}">Home</a>
+        <a th:href="@{/forum}">Forum</a>
+    </div>
+
+
+    <div class="nav-center">
+
+
+    </div>
+
+    <div class="nav-right">
+        <div class="nav-right">
+            <div th:if="${#authentication.principal != 'anonymousUser'}" class="user-info">
+                <div class="user-details">
+                    <span>Welcome, <strong th:text="${#authentication.name}">User</strong>!</span>
+                    <p>Your account balance is: $<span th:text="${balance}">0.00</span></p>
+                </div>
+                <div class="user-links">
+                    <a href="/logged-in" class="user-link">My Account</a>
+                    <a href="/logout" class="user-link">Logout</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Shopping Basket Icon -->
+        <a href="/home/basket">
+            <img th:src="@{/images/purchase.png}" alt="Shopping Basket" style="width: 30px; height: 30px;">
+        </a>
+    </div>
+</nav>
+
+<div class="main-content">
+    <h2 class="purchase-history-header">Your Purchase History</h2>
+    <p class="intro-text">Below is a record of your previous orders. Find details of each order including items, quantity, and total price.</p>
+
+
+        <!-- Loop through each order -->
+        <div th:each="order, iterStat : ${orders}">
+            <h3 class="order-header">
+                Order #<span th:text="${order.id}"></span> -
+                <span class="order-date" th:text="${order.date}"></span>
+            </h3>
+
+            <!-- Create a table for each order -->
+            <table class="purchase-history-table">
+                <thead>
+                <tr>
+                    <th>Book Title</th>
+                    <th>Quantity</th>
+                    <th>Total Price</th>
+                    <th>Data</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!-- Loop through aggregated books for each order -->
+                <tr th:each="entry : ${aggregatedOrderDetails[iterStat.index]}">
+                    <td th:text="${entry.key.title}"></td> <!-- Book Title -->
+                    <td th:text="${entry.value}"></td> <!-- Aggregated Quantity -->
+                    <td th:text="${entry.key.price * entry.value}"></td> <!-- Price * Quantity -->
+                    <td th:text="${order.date}"></td> <!-- New "Data" column for the entry -->
+                </tr>
+                </tbody>
+            </table>
+            <!-- Add some space after each table -->
+            <div style="margin-bottom: 20px;"></div>
+        </div>
+    </div>
+
+
+<footer>
+    <p>&copy; 2024 Bookstore. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
+
+
+
